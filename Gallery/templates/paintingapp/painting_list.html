@@ -1,0 +1,24 @@
+{% extends "paintingapp/base.html" %} 
+
+{% block title %}Галерея Искусства{% endblock %}
+
+{% block content %}
+<h2>Галерея</h2>
+
+<div class="gallery">
+    {% for painting in painting_list %}
+            <div class="gallery-item">
+                <h3>{{ painting.title }}</h3>
+                <img src="{{ painting.image.url }}" alt="{{ painting.title }}">
+                <p><strong>Автор:</strong>
+                    {% for artist in painting.artist.all %}
+                        {{ artist.name }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </p>
+                <p><strong>Описание:</strong> {{ painting.description }}</p>
+                <a href="{% url 'painting_detail' painting.slug %}">Подробнее</a>
+            </div>
+        {% endfor %}
+</div>
+
+{% endblock %}

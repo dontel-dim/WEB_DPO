@@ -1,0 +1,37 @@
+{% load static %}  <!-- Загрузка тега static -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Painting Gallery{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'home' %}">Главная</a></li>
+                    <li><a href="{% url 'painting_list' %}">Галерея</a></li> 
+                    <li><a href="{% url 'logout' %}">Выход</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Вход</a></li>
+                    <li><a href="{% url 'register' %}">Регистрация</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    
+    
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Painting Gallery. Все права защищены.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,30 @@
+{% extends "paintingapp/base.html" %}
+
+{% block title %}{{ painting.title }} - Детали{% endblock %}
+
+{% block content %}
+<h2>{{ painting.title }}</h2>
+<img src="{{ painting.image.url }}" alt="{{ painting.title }}" style="max-width: 100%;">
+<p><strong>Автор:</strong> 
+    {% for artist in painting.artist.all %}
+        {{ artist.name }}{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+</p>
+<p><strong>Описание:</strong> {{ painting.description }}</p>
+<p><strong>Цена:</strong> {{ painting.price }} рублей</p>
+<p><strong>Номер телефона для покупки: </strong> {{ painting.phone_number}}</p>
+
+<!-- Информация о художниках -->
+<h3>Информация о художниках:</h3>
+{% for artist in painting.artist.all %}
+    <div>
+        <p><strong>Имя:</strong> {{ artist.name }}</p>
+        <p><strong>Возраст:</strong> {{ artist.age }} лет</p>
+        <p><strong>Описание:</strong> {{ artist.description }}</p>
+        <img src="{{ artist.image.url }}" alt="{{ artist.name }}" style="max-width: 100px;"> 
+    </div>
+    <hr>
+{% endfor %}
+
+<a href="{% url 'painting_list' %}">Назад к галерее</a> 
+{% endblock %}
