@@ -2,9 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
 from .models import Painting
 from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.views import LoginView as AuthLoginView
-from django.urls import reverse
+from .forms import ContactForm, ArtworkApplicationForm, UserRegistrationForm, UserLoginForm
+
 
 class PaintingsView(View):
     """Список (галерея) картин"""
@@ -23,30 +22,50 @@ class HomeView(View):
     def get(self, request):
         return render(request, 'paintingapp/home.html')
     
-# вход в систему
-class LoginView(AuthLoginView):
-    template_name = 'paintingapp/login.html'
 
-    def get_success_url(self):
-        return reverse('home')
+def contact_view(request): # форма обратной связи
+    form = ContactForm()
+    return render(request, 'paintingapp/contact.html', {'form': form})
+
+
+def artwork_application_view(request): # подача зааявок
+    if request.method == 'POST':
+        form = ArtworkApplicationForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.clean() 
+            return render(request, 'paintingapp/application_success.html')
+    else:
+        form = ArtworkApplicationForm()
     
+    return render(request, 'paintingapp/artwork_application.html', {'form': form})
 
-class LogoutView(View):
-    """Выход из системы"""
-    def get(self, request):
-        logout(request)
-        return redirect('painting_list')  # Перенаправление на главную страницу
-
-class RegisterView(View):
-    """Регистрация пользователя"""
-    def get(self, request):
-        form = UserCreationForm()
-        return render(request, 'paintingapp/register.html', {'form': form})
-
-    def post(self, request):
-        form = UserCreationForm(request.POST)
+def register_view(request):
+    if request.method == 'POST':
+        form = UserRegistrationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            login(request, user) 
-            return redirect('painting_list')
-        return render(request, 'paintingapp/register.html', {'form': form})
+            login(request, user)  # Вход после регистрации
+            return redirect('home') 
+    else:
+        form = UserRegistrationForm()
+    
+    return render(request, 'paintingapp/register.html', {'form': form})
+
+def login_view(request):
+    if request.method == 'POST':
+        form = UserLoginForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('home')  # Переход к главной странице или другой
+    else:
+        form = UserLoginForm()
+    
+    return render(request, 'paintingapp/login.html', {'form': form})
+
+def logout_view(request):
+    logout(request)
+    return redirect('home')
