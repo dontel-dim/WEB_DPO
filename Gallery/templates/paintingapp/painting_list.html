@@ -1,24 +1,29 @@
-{% extends "paintingapp/base.html" %} 
+{% extends "paintingapp/base.html" %}
 
 {% block title %}Галерея Искусства{% endblock %}
 
 {% block content %}
-<h2>Галерея</h2>
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Галерея Искусства</h2>
 
-<div class="gallery">
-    {% for painting in painting_list %}
-            <div class="gallery-item">
-                <h3>{{ painting.title }}</h3>
-                <img src="{{ painting.image.url }}" alt="{{ painting.title }}">
-                <p><strong>Автор:</strong>
-                    {% for artist in painting.artist.all %}
-                        {{ artist.name }}{% if not forloop.last %}, {% endif %}
-                    {% endfor %}
-                </p>
-                <p><strong>Описание:</strong> {{ painting.description }}</p>
-                <a href="{% url 'painting_detail' painting.slug %}">Подробнее</a>
+    <div class="row">
+        {% for painting in painting_list %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="{{ painting.image.url }}" alt="{{ painting.title }}" class="card-img-top img-fluid">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ painting.title }}</h5>
+                        <p class="card-text"><strong>Автор:</strong>
+                            {% for artist in painting.artist.all %}
+                                {{ artist.name }}{% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                        </p>
+                        <p class="card-text"><strong>Описание:</strong> {{ painting.description }}</p>
+                        <a href="{% url 'painting_detail' painting.slug %}" class="btn btn-primary">Подробнее</a>
+                    </div>
+                </div>
             </div>
         {% endfor %}
+    </div>
 </div>
-
 {% endblock %}
