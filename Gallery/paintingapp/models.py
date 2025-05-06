@@ -1,5 +1,7 @@
 from django.db import models
 from django.urls import reverse
+from django.core.validators import RegexValidator
+
 
 class Artist(models.Model):
     """Художники"""
@@ -26,8 +28,13 @@ class Painting(models.Model):
     artist = models.ManyToManyField(Artist, verbose_name="художники", related_name="painting_artist")
     price = models.PositiveIntegerField('Цена', default=0, help_text="указывать сумму в рублях")
     image = models.ImageField("Картина", upload_to='painting/')
-    slug = models.SlugField(unique=True, blank=True)
-    phone_number = models.PositiveIntegerField("Номер телефона", max_length=11, blank=True, default=0)  
+    slug = models.SlugField(unique=True, blank=False)
+    phone_number = models.CharField("Номер телефона", max_length=12, validators=[
+            RegexValidator(
+                regex=r'^\+?1?\d{9,15}$',
+                message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed."
+            )
+        ])  
 
     def __str__(self): 
         return self.title

@@ -1,14 +1,55 @@
-{% extends "paintingapp/base.html" %}
-
+{% extends "paintingapp/base.html" %} {% load form_tags %}
 {% block title %}Вход{% endblock %}
 
 {% block content %}
-<h2>Вход</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Войти</button>
-</form>
-<a href="{% url 'register' %}">Зарегистрироваться</a>
-{% endblock %}
+<div class="d-flex align-items-center">
+	<div class="container my-5">
+		<div class="row justify-content-center">
+			<div class="col-md-4">
+				<div class="card shadow-sm">
+					<div class="card-header text-center">
+			<h4>Вход</h4>
+		</div>
+					<div class="card-body">
+						
 
+						{% if form.errors %}
+						<div class="alert alert-danger" role="alert">
+							Пожалуйста, исправьте ошибки ниже.
+						</div>
+						{% endif %}
+
+						<form method="post" novalidate>
+							{% csrf_token %}
+
+							<div class="mb-3">
+								<label
+									for="{{ form.username.id_for_label }}"
+									class="form-label"
+									>Имя пользователя:</label
+								>
+								<br />
+								{{ form.username|add_class:"form-control" }}
+							</div>
+
+							<div class="mb-3">
+								<label
+									for="{{ form.password.id_for_label }}"
+									class="form-label"
+									>Пароль:</label
+								>
+								<br />
+								{{ form.password|add_class:"form-control" }}
+							</div>
+
+							
+								<button type="submit" class="btn btn-primary w-100">Войти</button>
+
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
