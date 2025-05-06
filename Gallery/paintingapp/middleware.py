@@ -15,4 +15,5 @@ class LoginRequiredMiddleware:
             if request.path == reverse('home'):
                 return redirect('login')
         
-        return response
+        return response     
+    

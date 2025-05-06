@@ -1,0 +1,14 @@
+
+{% extends "paintingapp/base.html" %}
+
+{% block title %}Заявка отправлена успешно{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="text-center">
+            <h1 class="animate__animated animate__fadeIn">Заявка на картину отправлена успешно!</h1>
+            <p class="lead animate__animated animate__fadeIn">Спасибо за вашу заявку. Мы свяжемся с вами в ближайшее время.</p>
+            <a href="{% url 'home' %}" class="btn btn-primary">Вернуться на главную</a>
+        </div>
+    </div>
+{% endblock %}

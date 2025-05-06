@@ -3,28 +3,45 @@
 {% block title %}{{ painting.title }} - Детали{% endblock %}
 
 {% block content %}
-<h2>{{ painting.title }}</h2>
-<img src="{{ painting.image.url }}" alt="{{ painting.title }}" style="max-width: 100%;">
-<p><strong>Автор:</strong> 
-    {% for artist in painting.artist.all %}
-        {{ artist.name }}{% if not forloop.last %}, {% endif %}
-    {% endfor %}
-</p>
-<p><strong>Описание:</strong> {{ painting.description }}</p>
-<p><strong>Цена:</strong> {{ painting.price }} рублей</p>
-<p><strong>Номер телефона для покупки: </strong> {{ painting.phone_number}}</p>
-
-<!-- Информация о художниках -->
-<h3>Информация о художниках:</h3>
-{% for artist in painting.artist.all %}
-    <div>
-        <p><strong>Имя:</strong> {{ artist.name }}</p>
-        <p><strong>Возраст:</strong> {{ artist.age }} лет</p>
-        <p><strong>Описание:</strong> {{ artist.description }}</p>
-        <img src="{{ artist.image.url }}" alt="{{ artist.name }}" style="max-width: 100px;"> 
+<div class="container mt-5">
+    <h2 class="text-center">{{ painting.title }}</h2>
+    
+    <div class="text-center mb-4">
+        <img src="{{ painting.image.url }}" alt="{{ painting.title }}" class="img-fluid rounded">
     </div>
-    <hr>
-{% endfor %}
 
-<a href="{% url 'painting_list' %}">Назад к галерее</a> 
+    <div class="mb-4">
+        <p><strong>Автор:</strong> 
+            {% for artist in painting.artist.all %}
+                {{ artist.name }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+        </p>
+        <p><strong>Описание:</strong> {{ painting.description }}</p>
+        <p><strong>Цена:</strong> {{ painting.price }} рублей</p>
+        <p><strong>Номер телефона для покупки:</strong> {{ painting.phone_number }}</p>
+    </div>
+
+    <h3 class="mt-4">Информация о художниках:</h3>
+    {% for artist in painting.artist.all %}
+        <div class="card mb-3">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="{{ artist.image.url }}" alt="{{ artist.name }}" class="img-fluid rounded-start" style="max-width: 100%;">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ artist.name }}</h5>
+                        <p class="card-text"><strong>Возраст:</strong> {{ artist.age }} лет</p>
+                        <p class="card-text"><strong>Описание:</strong> {{ artist.description }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+    {% endfor %}
+
+    <div class="text-center mt-4">
+        <a href="{% url 'painting_list' %}" class="btn btn-secondary">Назад к галерее</a>
+    </div>
+</div>
 {% endblock %}

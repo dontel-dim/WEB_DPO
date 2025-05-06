@@ -56,3 +56,33 @@ h2 {
     max-width: 100%;
     height: auto;
 }
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 2s forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.container {
+    margin-top: 25px;
+}
+
+.card {
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+img {
+    max-height: 250px; 
+    object-fit: cover;  
+}
