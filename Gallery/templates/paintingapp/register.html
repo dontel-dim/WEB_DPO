@@ -1,6 +1,6 @@
-{% extends "paintingapp/base.html" %} {% load form_tags %}
-{% block title %}Вход{% endblock %}
-
+{% extends "paintingapp/base.html" %}
+{% load form_tags %}
+{% block title %}Регистрация{% endblock %}
 
 {% block content %}
 <div class="container my-5">
@@ -11,31 +11,106 @@
                     <h4>Регистрация</h4>
                 </div>
                 <div class="card-body">
-                    <form method="post" novalidate>
-                        {% csrf_token %} {% for field in form %}
+                    <form method="post" id="registerForm" novalidate>
+                        {% csrf_token %}
+
+                        {% for field in form %}
                         <div class="mb-3">
-                            <label class="form-label">{{ field.label }}:</label>
-                            <br />
-                            {{ field|add_class:"form-control"  }} {% if field.errors %}
-                            <div class="text-danger small">
-                                {{ field.errors|striptags }}
+                            <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}:</label>
+
+                            {% if "password" in field.name %}
+                            <div class="input-group">
+                                {{ field|add_class:"form-control" }}
+                                <button type="button" class="btn btn-outline-secondary toggle-password"
+                                    data-target="{{ field.id_for_label }}">🙉</button>
                             </div>
+                            {% else %}
+                            {{ field|add_class:"form-control" }}
                             {% endif %}
                         </div>
                         {% endfor %}
-                        <button type="submit" class="btn btn-primary w-100">
-                            Зарегистрироваться
-                        </button>
+
+                        <button type="submit" class="btn btn-primary w-100">Зарегистрироваться</button>
                     </form>
                 </div>
                 <div class="card-footer text-center">
-                    <small
-                        >Уже есть аккаунт? <a href="{% url 'login' %}">Войти</a></small
-                    >
+                    <small>Уже есть аккаунт? <a href="{% url 'login' %}">Войти</a></small>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("registerForm");
+        const togglePasswordButtons = document.querySelectorAll(".toggle-password");
+        togglePasswordButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                const input = document.getElementById(button.dataset.target);
+                if (input) {
+                    const isPassword = input.type === "password";
+                    input.type = isPassword ? "text" : "password";
+                    button.textContent = isPassword ? "🙈" : "🙈";
+                }
+            });
+        });
+
+        const createError = (input, message) => {
+            input.classList.add("is-invalid");
+            const error = document.createElement("div");
+            error.className = "invalid-feedback";
+            error.textContent = message;
+            input.parentElement.appendChild(error);
+        };
+
+        const clearErrors = () => {
+            document.querySelectorAll(".is-invalid").forEach(el => el.classList.remove("is-invalid"));
+            document.querySelectorAll(".invalid-feedback").forEach(el => el.remove());
+        };
+
+        form.addEventListener("submit", function (e) {
+            clearErrors();
+            let hasError = false;
+
+            const username = form.querySelector("input[name='username']");
+            const email = form.querySelector("input[name='email']");
+            const password1 = form.querySelector("input[name='password1']");
+            const password2 = form.querySelector("input[name='password2']");
+
+            if (!username.value.trim()) {
+                createError(username, "Имя пользователя обязательно");
+                hasError = true;
+            }
+
+            if (!email.value.trim()) {
+                createError(email, "Адрес электронной почты обязателен");
+                hasError = true;
+            } else if (!/^\S+@\S+\.\S+$/.test(email.value)) {
+                createError(email, "Введите корректный адрес электронной почты");
+                hasError = true;
+            }
+
+            if (!password1.value.trim()) {
+                createError(password1, "Пароль обязателен");
+                hasError = true;
+            } else if (password1.value.length < 8) {
+                createError(password1, "Пароль должен содержать минимум 8 символов");
+                hasError = true;
+            }
+
+            if (!password2.value.trim()) {
+                createError(password2, "Подтвердите пароль");
+                hasError = true;
+            } else if (password1.value !== password2.value) {
+                createError(password2, "Пароли не совпадают");
+                hasError = true;
+            }
+
+            if (hasError) {
+                e.preventDefault();
+            }
+        });
+    });
+</script>
 {% endblock %}
