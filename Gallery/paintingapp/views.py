@@ -27,7 +27,6 @@ def contact_view(request): # форма обратной связи
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
-            form.clean_message()
             return render(request, 'paintingapp/contact_success.html')
     else:
         form = ContactForm()
@@ -76,3 +75,4 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('home')
+
