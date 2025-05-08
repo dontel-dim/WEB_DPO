@@ -8,6 +8,14 @@
     .text-center {
     background-color: #e7e5c8;
 }
+.limited-description {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 </style>
 
 <div class="container mt-5">
@@ -25,7 +33,7 @@
                                 {{ artist.name }}{% if not forloop.last %}, {% endif %}
                             {% endfor %}
                         </p>
-                        <p class="card-text"><strong>Описание:</strong> {{ painting.description }}</p>
+                        <p class="card-text limited-description"><strong>Описание:</strong> {{ painting.description }}</p>
                         <a href="{% url 'painting_detail' painting.slug %}" class="btn btn-primary">Подробнее</a>
                     </div>
                 </div>
