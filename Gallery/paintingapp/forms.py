@@ -31,7 +31,7 @@ class ContactForm(forms.Form):
 class ArtworkApplicationForm(forms.Form):
     artwork_title = forms.CharField(max_length=200, min_length=2, required=True, label='Название картины')
     artwork_description = forms.CharField(max_length=200, min_length=10, widget=forms.Textarea, required=True, label='Описание картины')
-    price = forms.DecimalField(decimal_places=2, max_digits=10, required=True, label='Цена (в рублях)')
+    price = forms.IntegerField(required=True, label='Цена (в рублях)')
     artwork_image = forms.ImageField(required=True, label='Изображение картины')
     phone_number = forms.CharField(max_length=15, required=True, label='Номер телефона', widget=forms.TextInput(attrs={'placeholder':'+7XXXXXXXXXX'}))
     artist_name = forms.CharField(max_length=100, required=True, label='Имя художника')
