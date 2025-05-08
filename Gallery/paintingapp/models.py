@@ -26,13 +26,13 @@ class Painting(models.Model):
     title = models.CharField("Название", max_length=100)
     description = models.TextField('Описание')
     artist = models.ManyToManyField(Artist, verbose_name="художники", related_name="painting_artist")
-    price = models.PositiveIntegerField('Цена', default=0, help_text="указывать сумму в рублях")
+    price = models.PositiveIntegerField('Цена', default=0, help_text="Указывать сумму в рублях")
     image = models.ImageField("Картина", upload_to='painting/')
     slug = models.SlugField(unique=True, blank=False)
     phone_number = models.CharField("Номер телефона", max_length=12, validators=[
             RegexValidator(
                 regex=r'^\+?1?\d{9,15}$',
-                message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed."
+                message="Номер телефона должен быть введен в формате: '+7XXXXXXXXXX'. Допустимо до 15 цифр."
             )
         ])  
 
