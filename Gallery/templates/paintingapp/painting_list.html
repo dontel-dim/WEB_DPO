@@ -3,8 +3,15 @@
 {% block title %}Галерея Искусства{% endblock %}
 
 {% block content %}
+
+<style>
+    .text-center {
+    background-color: #e7e5c8;
+}
+</style>
+
 <div class="container mt-5">
-    <h2 class="text-center mb-4">Галерея Искусства</h2>
+    <h2 class="mb-4">Галерея Искусства</h2>
 
     <div class="row">
         {% for painting in painting_list %}

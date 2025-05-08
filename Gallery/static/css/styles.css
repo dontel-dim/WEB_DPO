@@ -10,7 +10,7 @@ body {
 
 header {
     background-color: #333;
-    color: white;
+    color: #e7e5c8;
 }
 
 nav ul {
@@ -24,7 +24,7 @@ nav ul li {
 }
 
 nav ul li a {
-    color: white;
+    color: #e7e5c8;
     text-decoration: none;
 }
 
@@ -35,7 +35,7 @@ nav ul li a {
 footer {
     text-align: center;
     padding: 10px;
-    background-color: #f1f1f1;
+    background-color: #e7e5c8;
     position: relative;
     bottom: 0;
     width: 100%;
@@ -97,5 +97,12 @@ img {
     max-height: 250px; 
     object-fit: cover;  
 }
+
+.footer text-center py-3 {
+    background-color: #e7e5c8;
+}
+
+
+
 
 
