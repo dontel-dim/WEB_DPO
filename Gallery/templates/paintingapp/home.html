@@ -63,6 +63,29 @@
         flex: 1 1 30%;
         max-width: 32%;
     }
+
+    @media (max-width: 768px) {
+        .three-column-wrapper {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .three-column-wrapper .infoSection {
+            max-width: 100%;
+            flex: 1 1 auto;
+            margin-bottom: 20px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .infoSection h2 {
+            font-size: 1.5rem;
+        }
+
+        .benefit-item {
+            font-size: 1rem;
+        }
+    }
 </style>
 
 <div class="text-center" id="welcomeSection">
@@ -100,19 +123,15 @@
     <div class="infoSection">
         <h2 class="fade-in" style="color: #404c7c">Отзывы наших клиентов</h2>
         <ul class="reviews fade-in">
-            <li><strong>Анна, Москва:</strong> "Картина превзошла все ожидания! Качество великолепное, теперь она
-                украшает мою гостиную."</li>
-            <li><strong>Игорь, Санкт-Петербург:</strong> "Очень доволен покупкой. Удобный сайт, понятные условия,
-                быстрая доставка."</li>
-            <li><strong>Марина, Казань:</strong> "Нашла здесь идеальный подарок на годовщину. Спасибо за помощь в
-                подборе!"</li>
+            <li><strong>Анна, Москва:</strong> "Картина превзошла все ожидания! Качество великолепное, теперь она украшает мою гостиную."</li>
+            <li><strong>Игорь, Санкт-Петербург:</strong> "Очень доволен покупкой. Удобный сайт, понятные условия, быстрая доставка."</li>
+            <li><strong>Марина, Казань:</strong> "Нашла здесь идеальный подарок на годовщину. Спасибо за помощь в подборе!"</li>
         </ul>
     </div>
 
     <div class="infoSection text-center">
         <h2 class="fade-in" style="color: #4e8b7c">Свяжитесь с нами</h2>
-        <p class="fade-in">Если у вас возникли вопросы или вы нуждаетесь в помощи, не стесняйтесь обращаться через
-            раздел <strong>«Обратная связь»</strong>.</p>
+        <p class="fade-in">Если у вас возникли вопросы или вы нуждаетесь в помощи, не стесняйтесь обращаться через раздел <strong>«Обратная связь»</strong>.</p>
         <p class="fade-in">Мы всегда рады помочь вам!</p>
     </div>
 </div>
