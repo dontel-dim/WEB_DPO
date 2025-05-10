@@ -26,6 +26,7 @@ class UserLoginForm(AuthenticationForm):
 class ContactForm(forms.Form):
     name = forms.CharField(max_length=100, required=True, label='Ваше имя', widget=forms.TextInput(attrs={'placeholder':'Введите ваше имя'}))
     email = forms.EmailField(required=True, label='Ваш адрес электронной почты', widget=forms.EmailInput(attrs={'placeholder':'example@example.com'}))
+    city = forms.CharField(max_length=100, required=True, label='Ваш город', widget=forms.TextInput(attrs={'placeholder':'Москва'}))
     message = forms.CharField(max_length=200, min_length=10, widget=forms.Textarea, required=True, label='Сообщение')
 
 class ArtworkApplicationForm(forms.Form):
