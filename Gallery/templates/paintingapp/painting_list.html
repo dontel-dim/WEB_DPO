@@ -6,16 +6,28 @@
 
 <style>
     .text-center {
-    background-color: #e7e5c8;
-}
-.limited-description {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
+        background-color: #e7e5c8;
+    }
+    .limited-description {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .card {
+        display: flex;            
+        flex-direction: column;   
+        height: 100%;             
+    }
+    .card-body {
+        flex-grow: 1;              
+        display: flex;
+        flex-direction: column;
+    }
+    .card-body .btn {
+        margin-top: auto;         
+    }
 </style>
 
 <div class="container mt-5">
@@ -23,8 +35,8 @@
 
     <div class="row">
         {% for painting in painting_list %}
-            <div class="col-md-4 mb-4">
-                <div class="card">
+            <div class="col-md-4 mb-4 d-flex">
+                <div class="card flex-fill">
                     <img src="{{ painting.image.url }}" alt="{{ painting.title }}" class="card-img-top img-fluid">
                     <div class="card-body">
                         <h5 class="card-title">{{ painting.title }}</h5>
