@@ -1,13 +1,13 @@
 {% extends "paintingapp/base.html" %} {% load form_tags %}
 
-{% block title %}Подача заявки на картину{% endblock %}
+{% block title %}Подача заявки на выставление своей картины{% endblock %}
 
 {% block content %}
 
 <style>
     .text-center {
-    background-color: #e7e5c8;
-}
+        background-color: #e7e5c8;
+    }
 </style>
 
 <div class="container my-5">
@@ -23,7 +23,7 @@
                         <div class="mb-3">
                             <label class="form-label">{{ field.label }}:</label>
                             <br />
-                            {{ field|add_class:"form-control"  }} {% if field.errors %}
+                            {{ field|add_class:"form-control" }} {% if field.errors %}
                             <div class="text-danger small">
                                 {{ field.errors|striptags }}
                             </div>
@@ -36,8 +36,7 @@
                     </form>
                 </div>
                 <div class="card-footer text-center">
-                    <small
-                        >Спасибо за участие </small>
+                    <small>Спасибо за участие </small>
                 </div>
             </div>
         </div>
