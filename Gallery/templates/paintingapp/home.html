@@ -3,9 +3,137 @@
 {% block title %}Главная страница{% endblock %}
 
 {% block content %}
-    <div class="text-center" id="welcomeSection">
-        <h1 class="display-4 fade-in">Добро пожаловать в галерею картин!</h1>
-        <p class="lead fade-in">Здесь вы найдете удивительные работы различных художников.</p>
-        <p class="fade-in">Используйте навигационную панель, чтобы посмотреть доступные картины.</p>
+<style>
+    #welcomeSection,
+    .infoSection {
+        background-color: #e7e5c8;
+        padding: 50px 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        margin: 20px auto;
+        max-width: 900px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .infoSection h2,
+    .display-4 {
+        margin-bottom: 20px;
+        font-family: 'Playfair Display', serif;
+    }
+
+    ul.reviews {
+        text-align: left;
+        list-style-type: none;
+        padding-left: 0;
+    }
+
+    ul.reviews li {
+        margin-bottom: 15px;
+    }
+
+    .benefits-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        margin-top: 20px;
+    }
+
+    .benefit-item {
+        background-color: #fff8dc;
+        padding: 12px 20px;
+        border-radius: 8px;
+        max-width: 600px;
+        width: 100%;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        font-size: 1.1rem;
+        text-align: left;
+    }
+
+    .three-column-wrapper {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin: 40px auto;
+        max-width: 1200px;
+    }
+
+    .three-column-wrapper .infoSection {
+        flex: 1 1 30%;
+        max-width: 32%;
+    }
+
+    @media (max-width: 768px) {
+        .three-column-wrapper {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .three-column-wrapper .infoSection {
+            max-width: 100%;
+            flex: 1 1 auto;
+            margin-bottom: 20px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .infoSection h2 {
+            font-size: 1.5rem;
+        }
+
+        .benefit-item {
+            font-size: 1rem;
+        }
+    }
+</style>
+
+<div class="text-center" id="welcomeSection">
+    <h1 class="display-4 fade-in">Откройте для себя мир искусства</h1>
+    <p class="fade-in">Добро пожаловать в <strong>Painting Gallery</strong> — место, где искусство оживает.</p>
+    <p class="fade-in">Мы предлагаем уникальную коллекцию картин, которые добавят изюминку в ваш интерьер и создадут
+        атмосферу вдохновения.</p>
+    <p class="fade-in"><strong>Начните знакомство с нашей коллекцией прямо сейчас — нажмите на раздел «Галерея» в
+            меню!</strong></p>
+</div>
+
+<div class="infoSection text-center">
+    <h2 class="fade-in" style="color:#6a4c4c">О нашей коллекции</h2>
+    <p class="fade-in">Наша галерея предлагает широкий выбор картин разных стилей. Мы сотрудничаем с талантливыми
+        художниками, чтобы предложить вам только оригинальные и качественные произведения искусства.</p>
+</div>
+
+<div class="infoSection text-center">
+    <h2 class="fade-in" style="color: #4e8b7c">Наши преимущества</h2>
+    <div class="benefits-container fade-in">
+        <div class="benefit-item">🎨 Оригинальные картины от талантливых художников</div>
+        <div class="benefit-item">🖼️ Высокое качество исполнения и материалов</div>
+        <div class="benefit-item">💰 Прозрачные условия покупки</div>
+        <div class="benefit-item">🚚 Быстрая и надёжная доставка по всей стране</div>
     </div>
+</div>
+
+<div class="three-column-wrapper">
+    <div class="infoSection text-center">
+        <h2 class="fade-in" style="color: #b68f40">Найдите своё вдохновение</h2>
+        <p class="fade-in">Просмотрите нашу коллекцию и найдите идеальное произведение для вашего дома или офиса.</p>
+        <p class="fade-in"><strong>Перейдите в раздел «Галерея» и начните своё путешествие в мир искусства!</strong></p>
+    </div>
+
+    <div class="infoSection">
+        <h2 class="fade-in" style="color: #404c7c">Отзывы наших клиентов</h2>
+        <ul class="reviews fade-in">
+            <li><strong>Анна, Москва:</strong> "Картина превзошла все ожидания! Качество великолепное, теперь она украшает мою гостиную."</li>
+            <li><strong>Игорь, Санкт-Петербург:</strong> "Очень доволен покупкой. Удобный сайт, понятные условия, быстрая доставка."</li>
+            <li><strong>Марина, Казань:</strong> "Нашла здесь идеальный подарок на годовщину. Спасибо за помощь в подборе!"</li>
+        </ul>
+    </div>
+
+    <div class="infoSection text-center">
+        <h2 class="fade-in" style="color: #4e8b7c">Свяжитесь с нами</h2>
+        <p class="fade-in">Если у вас возникли вопросы или вы нуждаетесь в помощи, не стесняйтесь обращаться через раздел <strong>«Обратная связь»</strong>.</p>
+        <p class="fade-in">Мы всегда рады помочь вам!</p>
+    </div>
+</div>
+
 {% endblock %}

@@ -3,13 +3,40 @@
 {% block title %}Галерея Искусства{% endblock %}
 
 {% block content %}
+
+<style>
+    .text-center {
+        background-color: #e7e5c8;
+    }
+    .limited-description {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .card {
+        display: flex;            
+        flex-direction: column;   
+        height: 100%;             
+    }
+    .card-body {
+        flex-grow: 1;              
+        display: flex;
+        flex-direction: column;
+    }
+    .card-body .btn {
+        margin-top: auto;         
+    }
+</style>
+
 <div class="container mt-5">
-    <h2 class="text-center mb-4">Галерея Искусства</h2>
+    <h2 class="mb-4">Галерея Искусства</h2>
 
     <div class="row">
         {% for painting in painting_list %}
-            <div class="col-md-4 mb-4">
-                <div class="card">
+            <div class="col-md-4 mb-4 d-flex">
+                <div class="card flex-fill">
                     <img src="{{ painting.image.url }}" alt="{{ painting.title }}" class="card-img-top img-fluid">
                     <div class="card-body">
                         <h5 class="card-title">{{ painting.title }}</h5>
@@ -18,7 +45,7 @@
                                 {{ artist.name }}{% if not forloop.last %}, {% endif %}
                             {% endfor %}
                         </p>
-                        <p class="card-text"><strong>Описание:</strong> {{ painting.description }}</p>
+                        <p class="card-text limited-description"><strong>Описание:</strong> {{ painting.description }}</p>
                         <a href="{% url 'painting_detail' painting.slug %}" class="btn btn-primary">Подробнее</a>
                     </div>
                 </div>

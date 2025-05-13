@@ -1,14 +1,100 @@
 {% extends "paintingapp/base.html" %}
-
+{% load form_tags %}
 {% block title %}Вход{% endblock %}
 
 {% block content %}
-<h2>Вход</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Войти</button>
-</form>
-<a href="{% url 'register' %}">Зарегистрироваться</a>
-{% endblock %}
 
+<style>
+    .text-center {
+        background-color: #e7e5c8;
+    }
+</style>
+
+<div class="d-flex align-items-center">
+	<div class="container my-5">
+		<div class="row justify-content-center">
+			<div class="col-md-4">
+				<div class="card shadow-sm">
+					<div class="card-header text-center">
+						<h4>Вход</h4>
+					</div>
+					<div class="card-body">
+
+						{% if form.non_field_errors %}
+						<div class="alert alert-danger" role="alert">
+							{% for error in form.non_field_errors %}
+							{{ error }}
+							{% endfor %}
+						</div>
+						{% endif %}
+
+						<form method="post" novalidate>
+							{% csrf_token %}
+
+							<div class="mb-3">
+								<label for="{{ form.username.id_for_label }}" class="form-label">Имя
+									пользователя:</label>
+								{{ form.username|add_class:"form-control" }}
+							</div>
+
+							<div class="mb-3">
+								<label for="{{ form.password.id_for_label }}" class="form-label">Пароль:</label>
+								<div class="input-group">
+									{{ form.password|add_class:"form-control" }}
+									<button type="button" class="btn btn-outline-secondary"
+										id="togglePassword">🙉</button>
+								</div>
+							</div>
+
+							<button type="submit" class="btn btn-primary w-100">Войти</button>
+						</form>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		const form = document.querySelector("form");
+		const username = document.querySelector("input[name='username']");
+		const password = document.querySelector("input[name='password']");
+		const togglePasswordBtn = document.getElementById("togglePassword");
+
+		togglePasswordBtn.addEventListener("click", () => {
+			const type = password.getAttribute("type") === "password" ? "text" : "password";
+			password.setAttribute("type", type);
+			togglePasswordBtn.textContent = type === "password" ? "🙉" : "🙈";
+		});
+
+		const createError = (input, message) => {
+			input.classList.add("is-invalid");
+			const error = document.createElement("div");
+			error.className = "invalid-feedback";
+			error.textContent = message;
+			input.parentElement.appendChild(error);
+		};
+
+		const clearErrors = () => {
+			document.querySelectorAll(".is-invalid").forEach(el => el.classList.remove("is-invalid"));
+			document.querySelectorAll(".invalid-feedback").forEach(el => el.remove());
+		};
+
+		form.addEventListener("submit", function (e) {
+			clearErrors();
+			let hasError = false;
+
+			if (!username.value.trim()) {
+				createError(username, "Имя пользователя обязательно");
+				hasError = true;
+			}
+
+			if (hasError) {
+				e.preventDefault();
+			}
+		});
+	});
+</script>
+{% endblock %}

@@ -18,7 +18,7 @@
         </p>
         <p><strong>Описание:</strong> {{ painting.description }}</p>
         <p><strong>Цена:</strong> {{ painting.price }} рублей</p>
-        <p><strong>Номер телефона для покупки:</strong> {{ painting.phone_number }}</p>
+        <p><strong>Номер телефона для покупки:</strong> +{{ painting.phone_number }}</p>
     </div>
 
     <h3 class="mt-4">Информация о художниках:</h3>
@@ -40,8 +40,8 @@
         <hr>
     {% endfor %}
 
-    <div class="text-center mt-4">
+    <div class="text-center mt-4" style="margin-bottom: 30px;">
         <a href="{% url 'painting_list' %}" class="btn btn-secondary">Назад к галерее</a>
-    </div>
+    </div>    
 </div>
 {% endblock %}

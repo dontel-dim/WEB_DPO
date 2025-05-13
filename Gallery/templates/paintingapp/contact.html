@@ -1,18 +1,97 @@
-
 {% extends "paintingapp/base.html" %}
+{% load form_tags %}
 
-{% block title %}Обратная связь{% endblock %} 
+{% block title %}Обратная связь{% endblock %}
 
 {% block content %}
-    <h1>Форма обратной связи</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Отправить</button>
-    </form>
-    <div>
-        <h2>С нами можно связаться</h2>
-        <p>Если у вас есть вопросы или предложения, не стесняйтесь обращаться к нам.</p>
-        <p>Мы ответим вам в кратчайшие сроки.</p>
+
+<style>
+    .text-center {
+        background-color: #e7e5c8;
+    }
+</style>
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card shadow-sm">
+                <div class="card-header text-center">
+                    <h4>Форма обратной связи</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post" id="feedbackForm" novalidate>
+                        {% csrf_token %}
+                        {% for field in form %}
+                        <div class="mb-3">
+                            <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}:</label>
+                            {{ field|add_class:"form-control" }}
+                        </div>
+                        {% endfor %}
+                        <button type="submit" class="btn btn-primary w-100">Отправить</button>
+                    </form>
+                </div>
+                <div class="card-footer text-center">
+                    <div>
+                        <h2>С нами можно связаться</h2>
+                        <p>Если у вас есть вопросы или предложения, не стесняйтесь обращаться к нам.</p>
+                        <p>Мы ответим вам в кратчайшие сроки.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("feedbackForm");
+
+        const createError = (input, message) => {
+            input.classList.add("is-invalid");
+            const error = document.createElement("div");
+            error.className = "invalid-feedback";
+            error.textContent = message;
+            input.parentElement.appendChild(error);
+        };
+
+        const clearErrors = () => {
+            document.querySelectorAll(".is-invalid").forEach(el => el.classList.remove("is-invalid"));
+            document.querySelectorAll(".invalid-feedback").forEach(el => el.remove());
+        };
+
+        form.addEventListener("submit", function (e) {
+            clearErrors();
+            let hasError = false;
+
+            const nameField = form.querySelector("input[name='name']");
+            const emailField = form.querySelector("input[name='email']");
+            const messageField = form.querySelector("textarea[name='message']");
+
+            if (!nameField.value.trim()) {
+                createError(nameField, "Имя обязательно");
+                hasError = true;
+            }
+
+            if (!emailField.value.trim()) {
+                createError(emailField, "Адрес электронной почты обязателен");
+                hasError = true;
+            } else if (!/^\S+@\S+\.\S+$/.test(emailField.value)) {
+                createError(emailField, "Введите корректный адрес электронной почты");
+                hasError = true;
+            }
+
+            if (!messageField.value.trim()) {
+                createError(messageField, "Сообщение обязательно");
+                hasError = true;
+            } else if (messageField.value.length < 10) {
+                createError(messageField, "Сообщение должно быть не менее 10 символов");
+                hasError = true;
+            }
+
+            if (hasError) {
+                e.preventDefault();
+            }
+        });
+    });
+</script>
 {% endblock %}
